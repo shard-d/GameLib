@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>GameLib</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <p class="tekstGore">
+    Track your games and manage your collection!
+    </p>
+  </ion-item>  
+
+  <ion-item class="polja">
+    <ion-label position="stacked">Username</ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="username">
+    </ion-input>
+  </ion-item>
+
+  <ion-item class="polja">
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input
+      type="password"
+      [(ngModel)]="password">
+    </ion-input>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    class="dugmence"
+    (click)="login()">
+    Login
+  </ion-button>
+
+  <p class="ion-text-center ion-margin-top">
+  Don't have an account? Register
+  </p>
+
+</ion-content>
