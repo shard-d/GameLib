@@ -4,38 +4,37 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-item>
+<ion-content class="login-content">
+
+  <div class="login-container">
+
     <p class="tekstGore">
-    Track your games and manage your collection!
+      Track your games and manage your collection!
     </p>
-  </ion-item>  
+    <div class="forma">
+      <ion-item class="polja">
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input type="text" [(ngModel)]="username"></ion-input>
+      </ion-item>
 
-  <ion-item class="polja">
-    <ion-label position="stacked">Username</ion-label>
-    <ion-input
-      type="text"
-      [(ngModel)]="username">
-    </ion-input>
-  </ion-item>
+      <ion-item class="polja">
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+    </div>
+    
 
-  <ion-item class="polja">
-    <ion-label position="stacked">Password</ion-label>
-    <ion-input
-      type="password"
-      [(ngModel)]="password">
-    </ion-input>
-  </ion-item>
+    <ion-button expand="block" class="dugmence" (click)="login()">
+      Login
+    </ion-button>
 
-  <ion-button
-    expand="block"
-    class="dugmence"
-    (click)="login()">
-    Login
-  </ion-button>
+    <div class="register_dugme">
+      <p>Don't have an account?</p>
+      <ion-button fill="clear" routerLink="/register">
+        Create an account!
+      </ion-button>
+    </div>
 
-  <p class="ion-text-center ion-margin-top">
-  Don't have an account? Register
-  </p>
+  </div>
 
 </ion-content>

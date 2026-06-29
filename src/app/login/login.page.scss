@@ -1,68 +1,74 @@
 
-ion-content {
-    padding: 16px;
-
+ion-content.login-content {
+  --padding-top: 20px;
+  --padding-start: 16px;
+  --padding-end: 16px;
 }
 
-
-ion-header {
-    padding: 20px;
+.forma {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
-
-
 
 ion-title {
-    font-size: 40px;
-    font-weight: bold;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-}
-
-
-p {
-    font-size: 14px;
-    font-style: oblique;
-    //display:flex;
-}
-
-
-ion-item {
-}
-
-ion-label {
-}
-
-ion-input {
-}
-
-
-.dugmence {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    //background-color: #4CAF50;
-}
-
-.polja {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+  font-size: 32px;
+  font-weight: bold;
+  font-family: Cambria, Georgia, serif;
+  text-align: center;
+  padding: 15px;
+  background-color: #b3ebe6;
 }
 
 
 .tekstGore {
-    font-size: 20px;
-    font-style: oblique;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  font-size: 18px;
+  font-style: oblique;
+  text-align: center;
+  margin: 20px 0;
 }
+
 
 .login-container {
+  display: flex;
+  flex-direction: column;
 }
 
-.login-form {
+
+.polja {
+  --border-radius: 30px;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: #ccc;
+  
+  margin: 12px 0;
+  --padding-start: 10px;
 }
 
-.register-text {
+
+ion-input {
+  --color: white;
+  --padding-start: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+
+.dugmence {
+  margin-top: 20px;
+  --border-radius: 10px;
+  align-self: center;
+}
+
+
+.register_dugme {
+  margin-top: 20px;
+  text-align: center;
+}
+
+
+.register_dugme p {
+  margin-bottom: 8px;
 }
