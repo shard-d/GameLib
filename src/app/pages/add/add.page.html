@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Add Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  
+        
+        
+  
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Create New Game</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <div class="cover-preview-section">
+        <img
+          [src]="coverImagePreview || newGame.cover"
+          alt="Game cover preview"
+          class="cover-preview">
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Cover Image</ion-label>
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onCoverImageSelected($event)">
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Game Name *</ion-label>
+        <ion-input
+          placeholder="Example: Hades"
+          [(ngModel)]="newGame.title">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Developer / Studio *</ion-label>
+        <ion-input
+          placeholder="Example: Supergiant Games"
+          [(ngModel)]="newGame.studio">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Genre</ion-label>
+        <ion-select [(ngModel)]="newGame.genre">
+          <ion-select-option
+            *ngFor="let genre of genres"
+            [value]="genre">
+            {{ genre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Platform</ion-label>
+        <ion-select [(ngModel)]="newGame.platform">
+          <ion-select-option
+            *ngFor="let platform of platforms"
+            [value]="platform">
+            {{ platform }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Achievements Unlocked</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="newGame.achievementsUnlocked">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Total Achievements</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="newGame.achievementsTotal">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Add to Favorites</ion-label>
+        <ion-toggle [(ngModel)]="newGame.favorite"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Add to Wishlist</ion-label>
+        <ion-toggle [(ngModel)]="newGame.inWishlist"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Popular This Week</ion-label>
+        <ion-toggle [(ngModel)]="newGame.isPopular"></ion-toggle>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        (click)="addGame()">
+        Add Game
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

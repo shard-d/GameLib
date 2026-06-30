@@ -8,9 +8,10 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
+  
   {
     path: 'login',
     loadComponent: () =>
@@ -21,4 +22,20 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./register/register.page').then((m) => m.RegisterPage),
   },
+  {
+    path: 'add',
+    loadComponent: () => import('./pages/add/add.page').then( m => m.AddPage)
+  },
+
+  {
+    path: 'favorites',
+    loadComponent: () => import('./pages/favorites/favorites.page').then( m => m.FavoritesPage)
+  },
+  {
+    path: 'games',
+    loadComponent: () => import('./pages/games/games.page').then( m => m.GamesPage)
+  },
+
+
+
 ];

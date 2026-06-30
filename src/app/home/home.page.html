@@ -1,20 +1,216 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Game Library</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-searchbar
+    placeholder="Search games"
+    [(ngModel)]="searchTerm">
+  </ion-searchbar>
+
+  <section class="continue-playing-section" *ngIf="continueGame">
+
+    <h2>Continue Playing</h2>
+
+    <ion-card class="continue-playing-card">
+
+      <div class="continue-playing-content">
+
+        <img
+          class="continue-playing-cover"
+          [src]="continueGame.cover"
+          [alt]="continueGame.title">
+
+        <div class="continue-playing-info">
+
+          <h3>{{ continueGame.title }}</h3>
+
+          <p>
+            {{ continueGame.achievementsUnlocked }} /
+            {{ continueGame.achievementsTotal }}
+            achievements
+          </p>
+
+          <ion-progress-bar
+            [value]="getAchievementProgress(continueGame)">
+          </ion-progress-bar>
+
+          <ion-button
+            fill="clear"
+            (click)="openGame(continueGame)">
+            Continue Playing
+            <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+
+        </div>
+
+      </div>
+
+    </ion-card>
+
+  </section>
+
+  <section class="wishlist-section">
+    <div class="wishlist-header">
+      <h2>Wishlist</h2>
+      <ion-button fill="clear" size="small">
+        See More
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="scrollable-container">
+      <ion-card *ngFor="let game of getWishlist()" class="game-card">
+        <img [src]="game.cover" [alt]="game.title" />
+
+        <ion-card-header>
+          <ion-card-title>{{ game.title }}</ion-card-title>
+          <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-button
+            fill="clear"
+            (click)="toggleFavorite(game)">
+
+            <ion-icon
+              [name]="game.favorite ? 'heart' : 'heart-outline'">
+            </ion-icon>
+
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </section>
+
+  <section class="popular-section">
+    <div class="popular-header">
+      <h2>Popular This Week</h2>
+      <ion-button fill="clear" size="small">
+        See More
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="scrollable-container">
+      <ion-card *ngFor="let game of getPopularThisWeek()" class="game-card">
+        <img [src]="game.cover" [alt]="game.title" />
+
+        <ion-card-header>
+          <ion-card-title>{{ game.title }}</ion-card-title>
+          <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-button
+            fill="clear"
+            (click)="toggleFavorite(game)">
+
+            <ion-icon
+              [name]="game.favorite ? 'heart' : 'heart-outline'">
+            </ion-icon>
+
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </section>
+
+  <section class="recommended-section">
+    <div class="recommended-header">
+      <h2>Recommended</h2>
+      <ion-button fill="clear" size="small">
+        See More
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="scrollable-container">
+      <ion-card *ngFor="let game of filteredGames" class="game-card">
+        <img [src]="game.cover" [alt]="game.title" />
+
+        <ion-card-header>
+          <ion-card-title>{{ game.title }}</ion-card-title>
+          <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-button
+            fill="clear"
+            (click)="toggleFavorite(game)">
+
+            <ion-icon
+              [name]="game.favorite ? 'heart' : 'heart-outline'">
+            </ion-icon>
+
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </section>
+
+  <section class="genre-section" *ngFor="let genre of genres">
+    <div class="genre-header">
+      <h2>{{ genre }}</h2>
+      <ion-button fill="clear" size="small">
+        See More
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="scrollable-container">
+      <ion-card *ngFor="let game of getGamesByGenre(genre)" class="game-card">
+        <img [src]="game.cover" [alt]="game.title" />
+
+        <ion-card-header>
+          <ion-card-title>{{ game.title }}</ion-card-title>
+          <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-button
+            fill="clear"
+            (click)="toggleFavorite(game)">
+
+            <ion-icon
+              [name]="game.favorite ? 'heart' : 'heart-outline'">
+            </ion-icon>
+
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </section>
+
+  
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons class="bottom-nav">
+
+      <ion-button>
+        <ion-icon name="home" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button>
+        <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/add">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button>
+        <ion-icon name="person-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>
