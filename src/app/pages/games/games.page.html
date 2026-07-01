@@ -1,13 +1,151 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>games</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">games</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <section class="profile-banner-section">
+
+    <img
+      class="profile-banner"
+      [src]="bannerImage"
+      alt="Profile banner">
+
+  </section>
+
+  <section class="profile-info-section">
+
+    <img
+      class="profile-avatar"
+      [src]="avatarImage"
+      alt="Profile image">
+
+    <h1>{{ username }}</h1>
+
+    <p>{{ userTitle }}</p>
+
+  </section>
+
+  <section class="profile-stats-section">
+
+    <div class="profile-stat">
+      <h2>{{ totalAchievements }}</h2>
+      <p>Achievements</p>
+    </div>
+
+    <div class="profile-stat">
+      <h2>{{ timePlayed }}h</h2>
+      <p>Time Played</p>
+    </div>
+
+    <div class="profile-stat">
+      <h2>{{ gamesOwned }}</h2>
+      <p>Games Owned</p>
+    </div>
+
+  </section>
+
+  <section class="favorite-games-section">
+
+    <div class="section-header">
+
+      <h2>Favorite Games</h2>
+
+      <ion-button
+        fill="clear"
+        routerLink="/favorites">
+        See all
+      </ion-button>
+
+    </div>
+
+    <div class="favorite-games-row" *ngIf="favoriteGames.length > 0">
+
+      <ion-card
+        class="favorite-game-card"
+        *ngFor="let game of favoriteGames">
+
+        <img
+          [src]="game.cover"
+          [alt]="game.title">
+
+        <ion-card-header>
+          <ion-card-title>{{ game.title }}</ion-card-title>
+          <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
+        </ion-card-header>
+
+      </ion-card>
+
+    </div>
+
+    <p *ngIf="favoriteGames.length === 0">
+      You have no favorite games yet.
+    </p>
+
+  </section>
+
+  <section class="continue-playing-section" *ngIf="continueGame">
+
+    <h2>Continue Playing</h2>
+
+    <ion-card class="continue-playing-card">
+
+      <div class="continue-playing-content">
+
+        <img
+          class="continue-playing-cover"
+          [src]="continueGame.cover"
+          [alt]="continueGame.title">
+
+        <div class="continue-playing-info">
+
+          <h3>{{ continueGame.title }}</h3>
+
+          <p>
+            {{ continueGame.achievementsUnlocked }} /
+            {{ continueGame.achievementsTotal }}
+            achievements
+          </p>
+
+          <ion-progress-bar
+            [value]="getAchievementProgress(continueGame)">
+          </ion-progress-bar>
+
+          <ion-button
+            fill="clear"
+            (click)="openGame(continueGame)">
+            Continue Playing
+            <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+
+        </div>
+
+      </div>
+
+    </ion-card>
+
+  </section>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons class="bottom-nav">
+
+      <ion-button routerLink="/home">
+        <ion-icon name="home" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/favorites">
+        <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/add">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/games">
+        <ion-icon name="person-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

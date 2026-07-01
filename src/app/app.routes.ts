@@ -34,7 +34,8 @@ export const routes: Routes = [
   {
     path: 'games',
     loadComponent: () => import('./pages/games/games.page').then( m => m.GamesPage)
-  },
+  }
+
 
 
 

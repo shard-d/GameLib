@@ -1,13 +1,115 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>favorites</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">favorites</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-content>
+  <section class="banner-section">
+
+    <img
+      src="assets/covers/banner.jpg"
+      alt="Favorites Banner"
+      class="banner-image">
+
+    <ion-button
+      class="back-button"
+      routerLink="/home">
+
+      <ion-icon
+        name="arrow-back-outline">
+      </ion-icon>
+
+    </ion-button>
+
+    <h1 class="banner-title">
+      Favorites
+    </h1>
+
+  </section>
+
+  <ion-searchbar
+    placeholder="Search favorite games"
+    [(ngModel)]="searchTerm">
+  </ion-searchbar>
+
+  <ion-item>
+    <ion-label>Genre</ion-label>
+    <ion-select [(ngModel)]="selectedGenre">
+      <ion-select-option value="all">All Genres</ion-select-option>
+
+      <ion-select-option
+        *ngFor="let genre of genres"
+        [value]="genre">
+        {{ genre }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Developer</ion-label>
+    <ion-select [(ngModel)]="selectedStudio">
+      <ion-select-option value="all">All Developers</ion-select-option>
+
+      <ion-select-option
+        *ngFor="let studio of studios"
+        [value]="studio">
+        {{ studio }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col
+        size="4"
+        *ngFor="let game of filteredFavorites">
+
+        <ion-card class="favorite-game-card">
+
+          <img
+            [src]="game.cover"
+            [alt]="game.title">
+
+          <ion-card-header>
+            <ion-card-title>{{ game.title }}</ion-card-title>
+            <ion-card-subtitle>{{ game.studio }}</ion-card-subtitle>
+          </ion-card-header>
+
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+  <p *ngIf="filteredFavorites.length === 0">
+    No favorite games found.
+  </p>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons class="bottom-nav">
+
+      <ion-button routerLink="/home">
+        <ion-icon name="home" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/favorites">
+        <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/add">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/games">
+        <ion-icon name="person-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

@@ -8,6 +8,8 @@ import { heart, heartOutline, arrowForwardOutline,
   home, addCircleOutline, personOutline } from 'ionicons/icons';
 import {Router } from '@angular/router';
 import{RouterLink} from '@angular/router';
+import { DataPage } from '../data/dummy-data/data';
+import{OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -17,150 +19,12 @@ import{RouterLink} from '@angular/router';
   standalone: true,
   imports: [RouterLink,CommonModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonIcon, IonSearchbar, FormsModule, IonHeader, IonToolbar, IonTitle, IonContent],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
    searchTerm: string = '';
+   games: Game[] = DataPage;
 
-    games: Game[] = [
-      {
-        id: 1,
-        title: 'Minecraft',
-        studio: 'Mojang Studios',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'cosy',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-      },
-      {
-        id: 2,
-        title: 'Hades',
-        studio: 'Supergiant Games',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'action',
-        platform: 'PC',
-        favorite: true,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-        isPopular: true,
-        inWishlist: true,
-      },
-      {
-        id: 3,
-        title: 'Stardew Valley',
-        studio: 'ConcernedApe',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'cosy',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-      },
-      {
-        id: 4,
-        title: 'Elden Ring',
-        studio: 'FromSoftware',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'rpg',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-        isPopular: true,
-      },
-      {
-        id: 5,
-        title: 'Celeste',
-        studio: 'Extremely OK Games',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'platformer',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-        inWishlist: true,
-      },
-      {
-        id: 6,
-        title: 'Hollow Knight',
-        studio: 'Team Cherry',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'platformer',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-      },
-      {
-        id: 7,
-        title: 'Outlast',
-        studio: 'Red Barrels',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'horror',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-      },
-      {
-        id: 8,
-        title: 'Blasphemous',
-        studio: 'The Game Kitchen',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'platformer',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-      },
-      {
-        id: 9,
-        title: 'Spiritfarer',
-        studio: 'Thunder Lotus Games',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'cosy',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-      },
-      {
-        id: 10,
-        title: 'Prey',
-        studio: 'Arkane Studios',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'action',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        isPopular: true,
-        achievementsTotal: 45,
-      },
-      {
-        id: 11,
-        title: 'Dark Souls 3',
-        studio: 'FromSoftware',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'rpg',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-        inWishlist: true,
-      },
-      {
-        id: 12,
-        title: 'Resident Evil 7',
-        studio: 'Capcom',
-        cover: 'assets/covers/placeholder.jpg',
-        genre: 'horror',
-        platform: 'PC',
-        favorite: false,
-        achievementsUnlocked: 12,
-        achievementsTotal: 45,
-      }
-    ];
+    
 
     get filteredGames(): Game[] {
       return this.games.filter(game =>
@@ -171,7 +35,10 @@ export class HomePage {
 
     toggleFavorite(game: Game): void {
       game.favorite = !game.favorite;
+
+      localStorage.setItem('games', JSON.stringify(this.games));
     }
+
 
     get continueGame(): Game | null {
       return this.games[0];
@@ -181,7 +48,11 @@ export class HomePage {
       return game.achievementsUnlocked / game.achievementsTotal;
     }
 
-    genres: string[] = ['action', 'cosy', 'rpg', 'horror', 'platformer'];
+   
+
+    get genres(): string[] {
+      return [...new Set(this.games.map(game => game.genre))];
+    }
 
     getGamesByGenre(genre: string): Game[] {
       return this.games.filter(game =>
@@ -208,21 +79,22 @@ export class HomePage {
       this.router.navigate(['/game-details', game.id]);
     }
 
-    loadCustomGames(): void {
-      const stored = localStorage.getItem('customGames');
+    loadGames(): void {
+      const stored = localStorage.getItem('games');
+
       if (stored) {
-        try {
-          const customGames = JSON.parse(stored);
-          this.games = [...this.games, ...customGames];
-        } catch (e) {
-          console.error('Error loading custom games:', e);
-        }
+        this.games = JSON.parse(stored);
+      } else {
+        this.games = DataPage;
+        localStorage.setItem('games', JSON.stringify(this.games));
       }
+    }
+    ngOnInit() {
+      this.loadGames();
     }
   
 
   constructor(private router: Router) {
     addIcons({arrowForwardOutline,home,heartOutline,addCircleOutline,personOutline,heart});
-    this.loadCustomGames();
   }
 }

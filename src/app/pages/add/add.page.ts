@@ -9,18 +9,19 @@ import { Game } from '../../models/game';
 import { Icon } from 'ionicons/dist/types/components/icon/icon';
 import { arrowBackOutline, addCircleOutline, personOutline, heartOutline, heart, arrowForwardOutline, home } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+
+
 @Component({
   selector: 'app-add',
   templateUrl: './add.page.html',
   styleUrls: ['./add.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, 
-    IonSelect, IonSelectOption, IonItem, IonLabel, IonCard, IonCardContent, 
-    IonCardHeader,IonIcon,
-IonTextarea,  IonBackButton,
-IonButtons, IonCardTitle, IonToggle, CommonModule, FormsModule
-  ]
+    IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput,
+    IonSelect, IonSelectOption, IonItem, IonLabel, IonCard, IonCardContent,
+    IonCardHeader, IonIcon,
+    IonButtons, IonCardTitle, IonToggle, CommonModule, FormsModule
+]
 })
 export class AddPage implements OnInit {
   
